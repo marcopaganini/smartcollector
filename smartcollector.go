@@ -176,7 +176,7 @@ func getTimeSeries(devinfo *gosmart.DeviceInfo) ([]string, error) {
 		if err != nil {
 			return nil, err
 		}
-		ret = append(ret, fmt.Sprintf("smartthings_sensors{id=\"%s\" name=\"%s\" attr=\"%v\"} %v", devinfo.ID, devinfo.DisplayName, k, value))
+		ret = append(ret, fmt.Sprintf("smartthings_sensors{id=\"%s\",name=\"%s\",attr=\"%v\"} %v", devinfo.ID, devinfo.DisplayName, k, value))
 	}
 	return ret, nil
 }
