@@ -134,7 +134,7 @@ func getTimeSeries(devinfo *gosmart.DeviceInfo) ([]string, error) {
 
 	valOpenClosed := []string{"open", "closed"}
 	valInactiveActive := []string{"inactive", "active"}
-	valAbsentPresent := []string{"absent", "present"}
+	valAbsentPresent := []string{"not present", "present"}
 	valOffOn := []string{"off", "on"}
 
 	ret := []string{}
