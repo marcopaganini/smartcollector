@@ -8,7 +8,7 @@ files ready to be imported by Prometheus' Node Exporter.
 
 The installation instructions assume a properly installed and configured Go
 development environment. The very first step is to download and build
-smartcollector (this step will also download and compile GoSmart):
+smartcollector (this step will also download and compile the GoSmart library):
 
 
 ```
@@ -44,15 +44,15 @@ $ smartcollector --client <client_id> --textfile-dir "/tmp"
 ```
 
 Please note the `textfile-dir` flag above. This instructs smartcollector to write
-the "textfile" output into your /tmp directory. This makes it easy to test smartcollector
+the "textfile" output into your "/tmp" directory. This makes it easy to test smartcollector
 and perform the initial installation, but node-exporter (Prometheus) won't read and
-import these files from /tmp. In a production environment, you'll want to:
+import these files from "/tmp". In a production environment, you'll want to:
 
 1. Make sure the `-collector.textfile.directory` flag of your `node_exporter` agrees with the
 value set in `--textfile-dir` on the smartcollector. By default, smartcollector uses
 "/run/textfile_collector"
 
-1. Make sure the user you use to run smartcollector has permissions to **write** under "textfile-dir".
+1. Make sure the system user you use to run smartcollector has permissions to **write** under "textfile-dir".
 
 1. Add an entry to your cron job to fetch the values every 5 or 10 minutes.
 
