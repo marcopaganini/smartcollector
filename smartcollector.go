@@ -62,7 +62,7 @@ func main() {
 	// Create a client with the token and fetch endpoints URI.
 	ctx := context.Background()
 	client := config.Client(ctx, token)
-	endpoint, err := gosmart.GetEndPointsURI(client)
+	endpoint, err := gosmart.GetEndPointsURI(client, gosmart.EndPointsURI)
 	if err != nil {
 		log.Fatalf("Error reading endpoints URI: %v\n", err)
 	}
