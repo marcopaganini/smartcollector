@@ -22,3 +22,9 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+# Vim
+*.swp
+
+# Binary
+smartcollector
