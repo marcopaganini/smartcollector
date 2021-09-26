@@ -14,11 +14,13 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/marcopaganini/gosmart"
-	"golang.org/x/net/context"
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
+
+	"github.com/marcopaganini/gosmart"
+	"golang.org/x/net/context"
 )
 
 const (
@@ -84,9 +86,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("Error processing sensor data: %v\n", err)
 		}
-		for _, v := range t {
-			ts = append(ts, v)
-		}
+		ts = append(ts, t...)
 	}
 
 	// Save timeseries (or just print if dry-run active)
@@ -213,11 +213,22 @@ func valueOneOf(v interface{}, options []string) (float64, error) {
 }
 
 // valueFloat returns the float64 value of the value passed or
-// error if the value cannot be converted.
+// error if the value cannot be converted. Accepts float64 and
+// strings as valid arguments.
 func valueFloat(v interface{}) (float64, error) {
-	val, ok := v.(float64)
-	if !ok {
-		return 0.0, fmt.Errorf("invalid non floating-point argument %v", v)
+	switch val := v.(type) {
+	case string:
+		ret, err := strconv.ParseFloat(val, 64)
+		if err != nil {
+			return 0.0, fmt.Errorf("unable to convert %q to float: %v", val, v)
+		}
+		return ret, nil
+	case float64:
+		ret, ok := v.(float64)
+		if !ok {
+			return 0.0, fmt.Errorf("unable to convert \"%v\" to string", v)
+		}
+		return ret, nil
 	}
-	return val, nil
+	return 0.0, fmt.Errorf("invalid type for \"%v\": %T", v, v)
 }
